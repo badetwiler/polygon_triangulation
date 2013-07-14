@@ -271,12 +271,9 @@ SB.Draw = {};
 	 * @see <a href="file:///home/ben/workspace/SandBox/ref/triangulation.ps">Triangulation Algorithm</a> 
 	 */
 	$.polygon = function(){
-		
 		var _vertexes = [];
 		var _addedVertices = [];
-		
 		var _monoPolygons = [];
-
 		
         /** Used to add a vertex to a list when drawing 2D profile of 3D object
          * @function 

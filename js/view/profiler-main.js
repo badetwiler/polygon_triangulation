@@ -1,4 +1,3 @@
-console.log('myscript.js loadedu');
 var xRot = 0;
 var xSpeed = 3;
 var yRot = 0;
@@ -11,15 +10,17 @@ mat4.identity(worldRotationMatrix);
 var mouseDown = false;
 var prevMouseX = null;
 var prevMouseY = null;
-var mouseRotate = false;
-var mouseDrawRay = true;
 
-var cylHeight = 2.0;
-var cylStart = new Point(10.0,2.0,0.0);
-var cylRad = 3.0;
-var poly = new SB.Draw.polygon();
+// var mouseRotate = false;
+// var mouseDrawRay = true;
+// var cylHeight = 2.0;
+// var cylStart = new Point(10.0,2.0,0.0);
+// var cylRad = 3.0;
+// var poly = new SB.Draw.polygon();
 
-
+var polygon_points = testPolygon;
+var draw_points = true;
+var tp;
 
 /**
  * 
@@ -99,21 +100,15 @@ function drawScene() {
 
     mat4.translate(mvMatrix,[0.0,0.0,zoom]);
 
-    //push matrix here?
-    //mat4.multiply(mvMatrix,worldRotationMatrix);
-    //mat4.rotate(mvMatrix,degToRad(xRot),[1,0,0]);
-    //mat4.rotate(mvMatrix,degToRad(yRot),[0,1,0]);
 
     if(showAxes){drawAxis();}  
     drawGrid();
-    //drawClickPts();
-    drawTriangulatedPolygon(tp); 
+
+    if(draw_points)
+      drawPts(polygon_points);
+    else
+      drawTriangulatedPolygon(tp); 
     
-    
-//    for(var i = 0 ; i< drawableObjects.length;i++){
-//	   var doo = drawableObjects[i];
-//	   doo.draw();
-//    }
     doneOnce = true;
 
 }
@@ -126,7 +121,6 @@ function tick() {
     handleKeys();
     setDrawSettings();
     drawScene();
-    //animate();
 }
 
 /**
@@ -194,30 +188,6 @@ function mouseDownEvent(e){
 		clickPts.push(coord[1]);
 		clickPts.push(0.0);
 	}
-	
-   
-    if(document.getElementById('raysRB').checked){
-        mouseDrawRay = true;
-		mouseRotate = false;
-	
-		canvas.removeEventListener("mousemove",mouseMoveEvent,false);
-		var x = e.pageX - canvas.offsetLeft;
-		var y = e.pageY - canvas.offsetTop;
-		var returnVal = {}
-		returnVal.x = x;
-		returnVal.y = y;
-	
-		//    var returnVal = {x:x,y:y};
-		var p0,p1;
-		p0 = unProject(new Point(x,y,0.0));    
-		p1 = unProject(new Point(x,y,1.0));
-		var line = new Line();
-		line.setPoints(new Point(p0[0],p0[1],p0[2]),
-	        	       new Point(p1[0],p1[1],p1[2]));
-		addObject(line);
-		drawScene();            
-    }
-
 }
 
 /**
@@ -254,9 +224,8 @@ function mouseMoveEvent(e){
 
 }
 
- var tp;
-function webGLStart() {
 
+function webGLStart() {
 
     initEventListeners();
     initGL(canvas);
@@ -264,18 +233,11 @@ function webGLStart() {
     initAxis();
     initGrid();
 
-
-//    var cylinder = new Cylinder();
-//    cylinder.setPoints(cylStart,cylRad,cylHeight);
-//    cylinder.setColor(new Color(0.5,0.0,0.5,1.0));
-//    addObject(cylinder); 
-
-
     gl.enable(gl.DEPTH_TEST);
 
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
-    tp = triangulate(testPolygon);
+    // tp = triangulate(testPolygon);
     tick();
 
 }
@@ -289,13 +251,39 @@ function initEventListeners(){
     canvas.addEventListener("mousewheel",mouseWheelEvent,false);
     canvas.addEventListener("mousedown",mouseDownEvent,false);
     document.addEventListener("mouseup",mouseUpEvent,false);
+
     $('#max-diam-slider').bind("slidechange",
     		function(event,ui){
     	    global_max_triang_diam = $('#max-diam-slider').slider("value");
-    	    console.log('slider value set to ' + global_max_triang_diam);
-    	    tp = triangulate(testPolygon);
+    	    // console.log('slider value set to ' + global_max_triang_diam);
+           // tp = triangulate(testPolygon);
+
+           if(!draw_points)
+      	      tp = triangulate(polygon_points);
+    });
+
+    $('#clear-screen-button').click( function(){
+      polygon_points = [];
+      draw_points = true;
+      
+    });
+
+    $('#triangulate-points-button').click( function(){
+      draw_points = false;
+      tp = triangulate(polygon_points);
+      console.log(tp)
+    });
+
+    $('#add-point-button').click( function(){
+      console.log('add point button clicked');
+      polygon_points.push(parseInt($('#x-coord-text').val(), 10));
+      polygon_points.push(parseInt($('#y-coord-text').val(), 10));
+      polygon_points.push(0.0);
+      console.log(polygon_points);
+      console.log($('#x-coord-text').val());
     });
 	
+
 }
 
 /**
@@ -399,6 +387,8 @@ function get2dCoordsFromClick(windowX,windowY){
 }
     
 function triangulate(vertexArray){
+        if (vertexArray.length == 0)
+          return;
 	var numPoints = vertexArray.length;
 	var polygon = new SB.Draw.polygon();
 	var monos;

@@ -180,10 +180,34 @@
     /**
      * 
      */
-    function drawClickPts(){
+    // function drawClickPts(){
+    //     clickPtsBuffer = gl.createBuffer();
+    //     gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
+    //     gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(clickPts),gl.STATIC_DRAW);
+    //     gl.lineWidth(5.0);
+    //     mvPushMatrix();
+    //     gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
+    //     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 
+    // 		3,
+    // 		gl.FLOAT,false,0,0);    
+    //     setMatrixUniforms();
+    //     setDrawColorUniform([0.0,0.0,1.0,1.0]);
+    //     gl.drawArrays(gl.LINE_STRIP,0,clickPts.length/3);
+    //     mvPopMatrix();
+    // }
+
+   /**
+    * 
+    */
+    function drawPts(pts){
+
         clickPtsBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(clickPts),gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER,
+                      clickPtsBuffer);
+
+        gl.bufferData(gl.ARRAY_BUFFER,
+                      new Float32Array(pts),
+                      gl.STATIC_DRAW);
         gl.lineWidth(5.0);
         mvPushMatrix();
         gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
@@ -192,7 +216,7 @@
     		gl.FLOAT,false,0,0);    
         setMatrixUniforms();
         setDrawColorUniform([0.0,0.0,1.0,1.0]);
-        gl.drawArrays(gl.LINE_STRIP,0,clickPts.length/3);
+        gl.drawArrays(gl.LINE_STRIP,0,pts.length/3);
         mvPopMatrix();
     }
     
@@ -206,7 +230,6 @@
      */
     function drawTriangulatedPolygon(tPoly){
     	/**/
-    	
     	var pts=[];
     	var l = tPoly.length;
     	if(_drawSolid){
@@ -249,7 +272,6 @@
     		
 	    	for(var i = 0; i < l;i+=3){
 	    		
-	    		
 	    		pts.push(tPoly[i].coord[0].toFixed(1));
 	    		pts.push(tPoly[i].coord[1].toFixed(2));
 	    		pts.push(0.0);
@@ -274,12 +296,13 @@
 	    		pts.push(tPoly[i].coord[1].toFixed(1));
 	    		pts.push(0.0);
 	    	}
-
 	    	
 	    	tPolyBuffer= gl.createBuffer();
 	    	
 	    	gl.bindBuffer(gl.ARRAY_BUFFER,tPolyBuffer);
-	    	gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(pts),gl.STATIC_DRAW);	    	
+	    	gl.bufferData(gl.ARRAY_BUFFER,
+                              new Float32Array(pts),
+                               gl.STATIC_DRAW);	    	
 	    	gl.lineWidth(3.5);
 	    	mvPushMatrix();
 	    	
@@ -360,7 +383,9 @@
 
     $(function() {
 	    $("#tabs").tabs();
+	    $("#tabs").height(300);
 	    // $("#selectable").selectable();
-	    // $("button").button();
+	    $("button").button();
 	    $( "#max-diam-slider" ).slider({min:1,max:5});
+	    $( "#max-diam-slider" ).width(200);
     });

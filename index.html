@@ -13,13 +13,13 @@
 <script type="text/javascript" src="js/sb/sb-triangulate.js"></script>
 <script type="text/javascript" src="js/sb/sb-math.js"></script>
 
-<script type="text/javascript" src="js/view/profiler/profiler-test.js"></script>
-<script type="text/javascript" src="js/view/profiler/profiler-init.js"></script>
-<script type="text/javascript" src="js/view/profiler/profiler-main.js"></script>
+<script type="text/javascript" src="js/view/profiler-test.js"></script>
+<script type="text/javascript" src="js/view/profiler-init.js"></script>
+<script type="text/javascript" src="js/view/profiler-main.js"></script>
 
 
 <link type="text/css" href="css/jQuery/cupertino/jquery-ui-1.8.14.custom.css" rel="stylesheet"></link>
-<link type="text/css" href="css/view/profiler/profiler-main.css" rel="stylesheet"></link>
+<link type="text/css" href="css/view/profiler-main.css" rel="stylesheet"></link>
 <script id="shader-fs" type="x-shader/x-fragment">
     #ifdef GL_ES
     precision highp float;
@@ -85,13 +85,57 @@
 
 <body onload="webGLStart();">
    <p id="c"><canvas id="glcanvas" width="1400" height="450"></canvas></p> 
+
   <div id="tabs">
     <ul>
       <li><a href="#tabs-1">Actions</a></li>
     </ul>
+
     <div id="tabs-1">
-      <div id="max-diam-slider"></div>
+
+
+
+      <div id="left_col">
+          <p>Triangle size</p>
+          <div id="max-diam-slider"></div>
+	  <button id="clear-screen-button"> Clear Screen </button>
+      </div>
+
+      <div id="right_col">
+
+        <div id="right_sub_col">
+          <div>Polygon points</div>
+          <textarea row="20"> </textarea>
+	    <div>
+    	      <button id="triangulate-points-button">Triangulate</button>
+	    </div>
+        </div>
+        <div id="left_sub_col">
+	    <div>
+	      X coordinate <br/>
+	      <input type="textbox" id="x-coord-text" value=""></input>
+	    </div>
+
+	    <div>
+	      Y coordinate <br/>
+	      <input type="textbox" id="y-coord-text" value=""></input>
+	    </div>
+
+	    <div>
+    	      <button id="add-point-button"> Add Point </button>
+	    </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+
     </div>
+
   </div>
 
 

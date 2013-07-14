@@ -5,11 +5,36 @@ body{overflow:hidden;}
 #glcanvas{border:none;}
 
 .sb-pos-input{
-	width:30px;
+  width:30px;
 }
 
-/****Jquery UI*****/
+#left_col {
+   float:left;
+   width:200px;
+}
 
+#right_col {
+   position:absolute;
+   width:450px;
+   left:250px;
+}
+
+#left_sub_col {
+   float:left;
+   width:150px;
+}
+
+#right_sub_col {
+   float:right;
+   width:150px;
+}
+
+#add-point-button {
+   width:150px;
+}
+
+
+/****Jquery UI*****/
 
 /* #feedback { font-size: 1.4em; } */
 /* #selectable .ui-selecting { background: #FECA40; } */
