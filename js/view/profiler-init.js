@@ -177,25 +177,6 @@
     var clickPtsBuffer;
     
     
-    /**
-     * 
-     */
-    // function drawClickPts(){
-    //     clickPtsBuffer = gl.createBuffer();
-    //     gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
-    //     gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(clickPts),gl.STATIC_DRAW);
-    //     gl.lineWidth(5.0);
-    //     mvPushMatrix();
-    //     gl.bindBuffer(gl.ARRAY_BUFFER,clickPtsBuffer);
-    //     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 
-    // 		3,
-    // 		gl.FLOAT,false,0,0);    
-    //     setMatrixUniforms();
-    //     setDrawColorUniform([0.0,0.0,1.0,1.0]);
-    //     gl.drawArrays(gl.LINE_STRIP,0,clickPts.length/3);
-    //     mvPopMatrix();
-    // }
-
    /**
     * 
     */
@@ -384,8 +365,8 @@
     $(function() {
 	    $("#tabs").tabs();
 	    $("#tabs").height(300);
-	    // $("#selectable").selectable();
 	    $("button").button();
 	    $( "#max-diam-slider" ).slider({min:1,max:5});
 	    $( "#max-diam-slider" ).width(200);
+    	    global_max_triang_diam=$('#max-diam-slider').slider("value");
     });

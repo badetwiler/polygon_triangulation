@@ -102,7 +102,7 @@ function drawScene() {
 
 
     if(showAxes){drawAxis();}  
-    drawGrid();
+    // drawGrid();
 
     if(draw_points)
       drawPts(polygon_points);
@@ -176,18 +176,17 @@ function drawGrid(){
  * @param e
  */
 function mouseDownEvent(e){
-	if(document.getElementById('assignPtRB').checked){
-		var x = e.pageX - canvas.offsetLeft;
-		var y = e.pageY - canvas.offsetTop;
-		var coord = get2dCoordsFromClick(x,y);
-		coord[0] = coord[0].toFixed(2);
-		coord[1] = coord[1].toFixed(2);
-		console.log(coord);
-		poly.addVertex(coord);
-		clickPts.push(coord[0]);
-		clickPts.push(coord[1]);
-		clickPts.push(0.0);
-	}
+    var x = e.pageX - canvas.offsetLeft;
+    var y = e.pageY - canvas.offsetTop;
+    var coord = get2dCoordsFromClick(x,y);
+    coord[0] = coord[0].toFixed(2);
+    coord[1] = coord[1].toFixed(2);
+    console.log('click!');
+    console.log(coord);
+    // poly.addVertex(coord);
+    polygon_points.push(parseFloat(coord[0]));
+    polygon_points.push(parseFloat(coord[1]));
+    polygon_points.push(0.0);
 }
 
 /**
@@ -232,12 +231,9 @@ function webGLStart() {
     initShaders();
     initAxis();
     initGrid();
-
     gl.enable(gl.DEPTH_TEST);
-
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
-    // tp = triangulate(testPolygon);
     tick();
 
 }
@@ -256,8 +252,6 @@ function initEventListeners(){
     		function(event,ui){
     	    global_max_triang_diam = $('#max-diam-slider').slider("value");
     	    // console.log('slider value set to ' + global_max_triang_diam);
-           // tp = triangulate(testPolygon);
-
            if(!draw_points)
       	      tp = triangulate(polygon_points);
     });
@@ -269,15 +263,29 @@ function initEventListeners(){
     });
 
     $('#triangulate-points-button').click( function(){
-      draw_points = false;
-      tp = triangulate(polygon_points);
-      console.log(tp)
+
+      var len = polygon_points.length;
+      if(polygon_points[0] != polygon_points[len-3] &&
+         polygon_points[1] != polygon_points[len-2]) {
+         console.log('adding end points');
+         polygon_points.push(polygon_points[0]);
+         polygon_points.push(polygon_points[1]);
+         polygon_points.push(polygon_points[2]);
+      }
+
+      if(polygon_points.length == 0)
+        console.log('polygon points is empty');
+      else {
+        console.log(polygon_points);
+        tp = triangulate(polygon_points);
+        draw_points = false;
+      }
     });
 
     $('#add-point-button').click( function(){
       console.log('add point button clicked');
-      polygon_points.push(parseInt($('#x-coord-text').val(), 10));
-      polygon_points.push(parseInt($('#y-coord-text').val(), 10));
+      polygon_points.push(parseFloat($('#x-coord-text').val()));
+      polygon_points.push(parseFloat($('#y-coord-text').val()));
       polygon_points.push(0.0);
       console.log(polygon_points);
       console.log($('#x-coord-text').val());
@@ -389,6 +397,8 @@ function get2dCoordsFromClick(windowX,windowY){
 function triangulate(vertexArray){
         if (vertexArray.length == 0)
           return;
+        console.log('vertex array');
+        console.log(vertexArray);
 	var numPoints = vertexArray.length;
 	var polygon = new SB.Draw.polygon();
 	var monos;
