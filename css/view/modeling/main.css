@@ -1,0 +1,27 @@
+
+body{overflow:hidden;}
+
+#c{border-style:solid;}
+#glcanvas{border:none;}
+
+.sb-pos-input{
+	width:30px;
+}
+
+/****Jquery UI*****/
+
+.ui-tabs-panel{
+    height:15%;
+}
+
+#feedback { font-size: 1.4em; }
+#selectable-draw-type .ui-selecting { background: #FECA40; }
+#selectable-draw-type .ui-selected { background: #F39814;  color: white; }
+#selectable-draw-type { list-style-type: none; margin: 0; padding: 0; width: 10%; }
+#selectable-draw-type li { margin: 3px; padding: 0.4em; font-size: 0.8em; height: 18px; }
+
+
+.draw-options { position:relative; left:150px; bottom:100px; }
+button { padding: .5em 1em; text-decoration: none; }
+#draw-cylinder-options-container { width: 80%; height: 90px; padding: 0.4em; position: relative; }
+#draw-cylinder-options-container h3 { margin: 0; padding: 0.4em; text-align: center; }

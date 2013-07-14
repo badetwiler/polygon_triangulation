@@ -1,0 +1,25 @@
+form {
+     border-style: solid;
+     margin: 20px 200px;
+     position: relative;
+}
+
+.fields {
+     left: 250px;
+     position: relative;
+}
+
+.labels {
+    margin:0px 15px 0px 0px;
+}
+
+#submitBTN {
+     left: 80px;
+     position: relative;
+}
+
+#newUserLink{
+    bottom: 60px;
+    left: 650px;
+    position: relative;
+}

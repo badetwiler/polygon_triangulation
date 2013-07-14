@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>SandBox</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="js/jQuery/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/jQuery/jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript" src="js/webgl/glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="js/webgl/webgl-utils.js"></script>
+
+<script type="text/javascript" src="js/sb/sb-native.js"></script>
+<script type="text/javascript" src="js/sb/sb-shapes.js"></script>
+<script type="text/javascript" src="js/sb/sb-red-black-tree.js"></script>
+<script type="text/javascript" src="js/sb/sb-triangulate.js"></script>
+<script type="text/javascript" src="js/sb/sb-math.js"></script>
+
+<script type="text/javascript" src="js/view/profiler/profiler-test.js"></script>
+<script type="text/javascript" src="js/view/profiler/profiler-init.js"></script>
+<script type="text/javascript" src="js/view/profiler/profiler-main.js"></script>
+
+
+<link type="text/css" href="css/jQuery/cupertino/jquery-ui-1.8.14.custom.css" rel="stylesheet"></link>
+<link type="text/css" href="css/view/profiler/profiler-main.css" rel="stylesheet"></link>
+<script id="shader-fs" type="x-shader/x-fragment">
+    #ifdef GL_ES
+    precision highp float;
+    #endif 
+
+    varying vec3 vLightWeighting;
+    varying vec4 vColor;
+    
+    void main(void) {
+        /* no lighting */
+       gl_FragColor = vColor;
+
+
+      /*  for lighting
+       vec4 fragColor = vColor;
+       gl_FragColor = vec4(fragColor.rgb * vLightWeighting, fragColor.a);
+      */
+       
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexNormal;
+    attribute vec4 aVertexColor;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    uniform mat3 uNMatrix;
+
+    uniform vec3 uAmbientColor;
+    uniform vec4 uDrawColor;
+    uniform vec3 uLightingDirection;
+    uniform vec3 uDirectionalColor;
+
+    uniform bool uUseLighting;
+
+    varying vec3 vLightWeighting;
+    varying vec4 vColor;
+
+    void main(void) {
+        /* no lighting */
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vColor = uDrawColor;
+ 
+       /* with lighting
+         vColor = uDrawColor;
+         gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition,1.0);
+         highp vec3 ambientLight = vec3(0.2, 0.2, 0.2);
+            
+         highp vec3 directionalLightColor = vec3(0.2,0.2, 0.2);
+         highp vec3 directionalVector = vec3(0.0, 0.0, 1.0);
+         highp vec3 transformedNormal = uNMatrix *aVertexNormal;
+      
+         highp float directional = max(dot(transformedNormal, directionalVector), 0.0);
+         vLightWeighting = ambientLight + (directionalLightColor * directional);
+       */
+
+    }
+</script>
+
+</head>
+
+<body onload="webGLStart();">
+   <p id="c"><canvas id="glcanvas" width="1400" height="550"></canvas></p> 
+   <!-- <div id="menu">  -->
+   <!--    <div id="max-diam-slider"></div>  -->
+   <!-- </div> -->
+
+    <div id="tabs">
+	<ul>
+	    <li><a href="#tabs-1">Draw</a></li>
+	    <li><a href="#tabs-2">Options</a></li>
+	    <li><a href="#tabs-3">Lighting</a></li>
+	</ul>
+	<div id="tabs-1">
+	    <ol id="selectable">
+		    <li class="ui-widget-content">Cube</li>
+		    <li class="ui-widget-content">Sphere</li>
+		    <li class="ui-widget-content">Cylinder</li>
+	    </ol>
+	    <div class="draw-options">
+	      <div id="options-container" class="ui-widget-content ui-corner-all">
+<!--        	      <h3 class="ui-widget-header ui-corner-all">My Widget</h3> -->
+		      <p>
+		         	<label for="sb-input-pos-x">x:</label>
+					<input class="sb-pos-input" id="sb-input-pos-x">
+					<label for="sb-input-pos-y">y:</label>
+					<input class="sb-pos-input"  id="sb-input-pos-y">
+					<label for="sb-input-pos-z">z:</label>
+					<input class="sb-pos-input"  id="sb-input-pos-z">
+					<button id="sb-ui-draw-btn" >draw</button>
+		      </p>
+		      <p>
+					<label for="sb-shape-input-len">length</label>
+		      	    <input class="sb-pos-input"  id="sb-shape-input-len">
+		      	     <label for="sb-shape-input-radius">radius</label>
+		      	    <input class="sb-pos-input"  id="sb-shape-input-radius">
+		      </p>
+	      </div>
+	    </div>
+	</div>
+	<div id="tabs-2">
+	    <table>
+	      <tr>
+			<td><input type="checkbox" id="wireFrameCheckBox">Wire Frame</input></td>
+			<td><input type="checkbox" id="whiteBackgroundCheckBox" >White Backgound</input></td>
+			<td width="400" ></td>
+			<td><big><b>Function of mouse:</b></big></td>
+			<td><input type="radio" id="raysRB" value="rays" name="clickFn">Show Rays from Click</input></td>
+			<td><input type="radio" id="assignPtRB" value="assignPt" name="clickFn" checked="yes" >Find World Coords</input></td>
+	      </tr>
+          <tr>
+	        <td><input type="checkbox" id="showAxesCheckBox" checked="yes" >Show Axes</input></td>
+	      </tr>
+	      <tr></tr>
+	      <tr>
+	      	<td>
+	      	    <div id="max-diam-slider"></div>
+	      	</td>
+	      </tr>
+	    </table>
+	</div>
+	<div id="tabs-3"></div>
+    </div>
+
+
+</body>
+</html>

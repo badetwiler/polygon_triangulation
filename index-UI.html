@@ -1,0 +1,56 @@
+    <div id="tabs">
+	<ul>
+	    <li><a href="#tabs-1">Draw</a></li>
+	    <li><a href="#tabs-2">Options</a></li>
+	    <li><a href="#tabs-3">Lighting</a></li>  
+	</ul>
+	<div id="tabs-1"> 
+	    <ol id="selectable"> 
+		    <li class="ui-widget-content">Cube</li>
+		    <li class="ui-widget-content">Sphere</li>
+		    <li class="ui-widget-content">Cylinder</li>
+	    </ol>
+	    <div class="draw-options">
+	      <div id="options-container" class="ui-widget-content ui-corner-all">
+<!--        	      <h3 class="ui-widget-header ui-corner-all">My Widget</h3> -->
+		      <p> 
+		         	<label for="sb-input-pos-x">x:</label>
+					<input class="sb-pos-input" id="sb-input-pos-x">
+					<label for="sb-input-pos-y">y:</label>
+					<input class="sb-pos-input"  id="sb-input-pos-y">
+					<label for="sb-input-pos-z">z:</label>
+					<input class="sb-pos-input"  id="sb-input-pos-z">
+					<button id="sb-ui-draw-btn" >draw</button>
+		      </p>
+		      <p>
+					<label for="sb-shape-input-len">length</label>
+		      	    <input class="sb-pos-input"  id="sb-shape-input-len">
+		      	     <label for="sb-shape-input-radius">radius</label>
+		      	    <input class="sb-pos-input"  id="sb-shape-input-radius">
+		      </p>
+	      </div>
+	    </div>
+	</div>
+	<div id="tabs-2">
+	    <table>
+	      <tr>
+			<td><input type="checkbox" id="wireFrameCheckBox">Wire Frame</input></td>
+			<td><input type="checkbox" id="whiteBackgroundCheckBox" >White Backgound</input></td> 
+			<td width="400" ></td>
+			<td><big><b>Function of mouse:</b></big></td>
+			<td><input type="radio" id="raysRB" value="rays" name="clickFn">Show Rays from Click</input></td>
+			<td><input type="radio" id="assignPtRB" value="assignPt" name="clickFn" checked="yes" >Find World Coords</input></td>
+	      </tr>
+          <tr>
+	        <td><input type="checkbox" id="showAxesCheckBox" checked="yes" >Show Axes</input></td>
+	      </tr>
+	      <tr></tr>
+	      <tr>
+	      	<td>
+	      	    <div id="max-diam-slider"></div>
+	      	</td>
+	      </tr>
+	    </table>
+	</div>
+	<div id="tabs-3"></div>
+    </div>
