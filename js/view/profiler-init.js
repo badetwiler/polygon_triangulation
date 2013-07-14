@@ -69,7 +69,7 @@
         } catch (e) {
         }
         if (!gl) {
-            alert("Could not initialise WebGL, sorry :-(");
+            alert("Could not initialize WebGL. It is recommended you use a Chrome browser and have a graphics card installed.");
         }
     }
 
