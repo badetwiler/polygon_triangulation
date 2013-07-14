@@ -133,9 +133,7 @@ function tick() {
  * 
  */
 function setDrawSettings(){
-    useWireFrame  = document.getElementById("wireFrameCheckBox").checked;
-    useWhiteBackground =document.getElementById("whiteBackgroundCheckBox").checked;
-    showAxes = document.getElementById("showAxesCheckBox").checked;
+
 }
 
 /**
@@ -278,7 +276,6 @@ function webGLStart() {
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
     tp = triangulate(testPolygon);
-
     tick();
 
 }

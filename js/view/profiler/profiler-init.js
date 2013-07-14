@@ -249,10 +249,6 @@
     		
 	    	for(var i = 0; i < l;i+=3){
 	    		
-//	    		if(!doneOnce){
-//	    			console.log('t: '+i/3);
-//	    			console.log('    '+tPoly[i].coord+','+tPoly[i+1].coord+','+tPoly[i+2].coord);
-//	    		}
 	    		
 	    		pts.push(tPoly[i].coord[0].toFixed(1));
 	    		pts.push(tPoly[i].coord[1].toFixed(2));
@@ -363,9 +359,8 @@
     /**********************/
 
     $(function() {
-	    // $("#menu").menu();
 	    $("#tabs").tabs();
-	    $("#selectable").selectable();
-	    $("button").button();
+	    // $("#selectable").selectable();
+	    // $("button").button();
 	    $( "#max-diam-slider" ).slider({min:1,max:5});
     });
