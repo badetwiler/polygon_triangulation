@@ -92,8 +92,7 @@ function drawScene() {
     */
 
     mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-    //mat4.perspective(10, gl.viewportWidth / gl.viewportHeight, -1.0, 1.0, pMatrix);
-    //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
     gl.enable(gl.BLEND);
     mat4.identity(mvMatrix); 
 
@@ -106,11 +105,15 @@ function drawScene() {
 
     if(draw_points)
       drawPts(polygon_points);
-    else
-      drawTriangulatedPolygon(tp); 
-    
-    doneOnce = true;
+    else{
+      if(global_max_triang_diam != 6)
+        drawTriangulatedPolygon(tp); 
+      else
+        drawMonotonePolygons(tp);
 
+    }
+
+    doneOnce = true;
 }
 
 /**
@@ -248,12 +251,12 @@ function initEventListeners(){
     canvas.addEventListener("mousedown",mouseDownEvent,false);
     document.addEventListener("mouseup",mouseUpEvent,false);
 
-    $('#max-diam-slider').bind("slidechange",
-    		function(event,ui){
+    $('#max-diam-slider').bind("slidechange", function(event,ui){
     	    global_max_triang_diam = $('#max-diam-slider').slider("value");
-    	    // console.log('slider value set to ' + global_max_triang_diam);
-           if(!draw_points)
-      	      tp = triangulate(polygon_points);
+           if (!draw_points){
+              tp = triangulate(polygon_points);
+           }
+
     });
 
     $('#clear-screen-button').click( function(){
@@ -290,7 +293,7 @@ function initEventListeners(){
       console.log(polygon_points);
       console.log($('#x-coord-text').val());
     });
-	
+
 
 }
 
@@ -405,9 +408,11 @@ function triangulate(vertexArray){
 	for(var i = 0;i < numPoints;i+=3){
 		polygon.addVertex( [vertexArray[i],vertexArray[i+1] ]);
 	}
-	monos = polygon.toMonotones();
-	return polygon.triangulateMonotones(monos);
-	
+        monos = polygon.toMonotones();
+        if(global_max_triang_diam != 6)
+	  return polygon.triangulateMonotones(monos);
+        else
+	  return monos;
 }   
 
 

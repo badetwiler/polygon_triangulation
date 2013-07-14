@@ -38,7 +38,7 @@ SB.Draw = {};
 		  case 5: str = "down"; break;
 		  case 6: str = "unknown"; break;
 		}
-		console.log(str);
+		// console.log(str);
 	}
 	
 	$.nullEdge = {};
@@ -335,58 +335,6 @@ SB.Draw = {};
     		
     		var _ccwOrderedVertexes =$.sortVertexes(false,_vertexes);
     		
-    		/* 
-        	var _ccwOrderedVertexes = (function orderCCW(x){
-                     //find index where vertex is highest
-        		     //pop last off since its repeat of first
-        		     if(x[0].equals(x[x.length-1])){
-        		    	 x.pop();
-        		     }
-        		     var h = 0;
-        		     var i = 0;
-        		     var len = x.length;
-        		     var newArr = [];
-        		     var l;
-        		     var goForward;
-        		     // finds index of greatest point 
-        		     for(i =1;i<len;i++){
-        		    	 if(x[i].isGreaterThan(x[h])){h = i;}
-        		     }
-        		     i = 0;
-        		     //decided to traverse array forward or backward
-        		     if(h == len -1){
-        		    	 //if last element
-        		    	 if(x[h-1].isLeftOf(x[0])){goForward = false;}
-        		    	 else{goForward = true;}
-        		     }
-        		     else if(h == 0){
-        		    	 //if first element
-        		    	 if(x[len-1].isLeftOf(x[h+1])){goForward = false;}
-        		    	 else{goForward = true;}
-        		     }
-        		     else{
-        		    	 if(x[h-1].isLeftOf(x[h+1])){goForward = false;}
-        		    	 else{goForward = true;}
-        		     }
-        		     //should eventually conserve memory better here
-        		     while(i<len && i >-1*len ){
-        		    	 l = h + i;
-        		    	 if(l >= len){l = l-len;}
-        		    	 else if(l < 0){l = len + l;}
-       		    		 newArr.push(x[l]);
-        		    	 goForward ? i++ : i-- ;
-        		     }
-        		     
-        		    // set the edges between vertexes
-        		     newArr[0].setVertexType(newArr[len-1],newArr[1]);
-        		     newArr[len-1].setVertexType(newArr[len-2],newArr[0]);
-        		     for(i=1;i< len-1;i++){
-        		    	 newArr[i].setVertexType(newArr[i-1],newArr[i+1]);        		    	 
-        		     }     
-        		     return newArr;
- 	         })(_vertexes);
-    		*/
-    		
         	/**
         	 * Sort vertexes from top to bottom
         	 * in the case of same y value, the smaller
@@ -589,31 +537,31 @@ SB.Draw = {};
 	     for(var b =0;b<_vertexes.length;b++){
 	    	 if(_vertexes[b].type == $.VERTEX_TYPE.START){
 	    		 cnt++;
-	    		 console.log('START: ' + _vertexes[b].coord)
+	    		 // console.log('START: ' + _vertexes[b].coord)
 	    		 monotonePolygons[cnt] = [];
 	    		 monotonePolygons[cnt].push(_vertexes[b]);
 	    		 temp=_vertexes[b].nextEdge.endVertex;
 	    		 while(temp.type != $.VERTEX_TYPE.START){
-	    			 console.log(temp.coord);
+	    			 // console.log(temp.coord);
 	    			 monotonePolygons[cnt].push(temp);
 	    			 temp=temp.nextEdge.endVertex;
 	    		 }
-	    		 console.log('END POLYGON');
+	    		 // console.log('END POLYGON');
 	    	 } 
 	     }
 	     for(var b =0;b<_addedVertices.length;b++){
 	     	 if(_addedVertices[b].type ==$.VERTEX_TYPE.START){
 	     		 cnt++;
-	    		 console.log('START: ' + _addedVertices[b].coord);
+	    		 // console.log('START: ' + _addedVertices[b].coord);
 	    		 monotonePolygons[cnt] = [];
 	    		 monotonePolygons[cnt].push(_addedVertices[b]);
 	    		 temp=_addedVertices[b].nextEdge.endVertex;
 	    		 while(temp.type != $.VERTEX_TYPE.START){
-	    			 console.log(temp.coord);
+	    			 // console.log(temp.coord);
 	    			 monotonePolygons[cnt].push(temp);
 	    			 temp=temp.nextEdge.endVertex;
 	    		 }
-    			 console.log('END POLYGON');
+    			 // console.log('END POLYGON');
 	     	 } 
 	     }
 	     return monotonePolygons;
@@ -704,10 +652,10 @@ SB.Draw = {};
             		 * used for debugging purposes
             		 */
             		var _printFinalOrder = function(r){
-            			console.log('ordered triangle to shrink');
-            			console.log('   '+r[0].coord+' : length: ' + _length(r[0],r[1]));
-            			console.log('   '+r[1].coord+' : length: ' + _length(r[1],r[2]));
-            			console.log('   '+r[2].coord+' : length: ' + _length(r[2],r[0]));
+            			// console.log('ordered triangle to shrink');
+            			// console.log('   '+r[0].coord+' : length: ' + _length(r[0],r[1]));
+            			// console.log('   '+r[1].coord+' : length: ' + _length(r[1],r[2]));
+            			// console.log('   '+r[2].coord+' : length: ' + _length(r[2],r[0]));
             		}
             		//first find longest side
             		var a = _length(_p[0],_p[1]);
@@ -758,7 +706,7 @@ SB.Draw = {};
             	b = _orderedPts[1].nextEdgeLength;
             	c = _orderedPts[2].nextEdgeLength;
             	
-            	console.log('(a,b,c) :' + [a,b,c]);
+            	// console.log('(a,b,c) :' + [a,b,c]);
             	
             	
             	if(c > global_max_triang_diam){
@@ -801,7 +749,7 @@ SB.Draw = {};
     			_triangles.push(a);
     			_triangles.push(b);
     			_triangles.push(c);
-    			console.log('triangle: ('+a.coord+'),('+b.coord+'),('+c.coord+')');
+    			// console.log('triangle: ('+a.coord+'),('+b.coord+'),('+c.coord+')');
     		}
     		
     		/**returns true if vertex b is visible from vi, where
@@ -809,8 +757,9 @@ SB.Draw = {};
     		 * @return {Boolean}
     		 */
     		var _isVisible = function(vi,a,b){
-    			if(vi.side != a.side){console.log('vi and a not on same side: ' +
-    					              vi.side + ' vs ' + a.side);return true;}
+    			if(vi.side != a.side){
+                          // console.log('vi and a not on same side: ' + vi.side + ' vs ' + a.side);return true;
+                        }
     			if(vi.side == SIDE.LEFT){
     				if(b.coord[0] < a.coord[0]){return false;}
     			}
@@ -826,7 +775,7 @@ SB.Draw = {};
         		currentMonotone = ms[m];
         		var onLeft = true;
         		var p = 1;
-        		console.log('***************************');
+        		// console.log('***************************');
         		if(currentMonotone.length == 3){
         			/* already a triangle*/
         			_triangulate(currentMonotone[0],
@@ -917,7 +866,9 @@ SB.Draw = {};
         					_triangulate(vi,u,stack[sl-1]);
         				}
         				stack.pop(); /*should be empty?*/
-        				if(stack.length != 0){console.log('stack not empty');}
+        				if(stack.length != 0){
+                                          // console.log('stack not empty');
+                                        }
         				stack.push(tempA);
         				stack.push(vi);
         			}
@@ -1203,7 +1154,9 @@ SB.Draw = {};
 				else if(val > x.value(h)){
 					x = x.right
 				}
-				else{console.log('$$ATTN: inserted duplicate'); return;}
+				else{
+                                  // console.log('$$ATTN: inserted duplicate'); return;
+                                }
 			}
 			z.parent = y;
 			if(y ==_NIL){
@@ -1242,7 +1195,7 @@ SB.Draw = {};
 				temp = z.value(h);
 			}
 			if(z == _NIL){
-				console.log('$$ATTN: value not found in tree');
+				// console.log('$$ATTN: value not found in tree');
 				return;
 			}
 			y = z;
@@ -1296,7 +1249,9 @@ SB.Draw = {};
 				}
 			}
 			/* might need to make copy first, then return*/
-			if(nearestLeft == _NIL){console.log('nearest left is NIL');return _NIL;}
+			if(nearestLeft == _NIL){
+                         // console.log('nearest left is NIL');return _NIL;
+                        }
 			else{
 //				console.log('nearest left: ' + 
 //					         nearestLeft.obj.startVertex.coord +
@@ -1322,7 +1277,7 @@ SB.Draw = {};
 					recursive(n.right);
 				}
 			})(_root);
-			console.log(a);
+			// console.log(a);
 		};
 
 		this.toString=function(){};

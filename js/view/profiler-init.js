@@ -171,9 +171,7 @@
     }
     
     
-    var clickPts= testPolygon;/*[1.0,0.0,0.0,
-                       2.0,-2.0,0.0,
-                       4.0,-2.0,0.0]; */
+    var clickPts= testPolygon;
     var clickPtsBuffer;
     
     
@@ -232,8 +230,7 @@
 	    	
 	    	gl.bindBuffer(gl.ARRAY_BUFFER,tPolyBuffer);
 	    	gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(pts),gl.STATIC_DRAW);
-	    	if(!doneOnce)
-		    	console.log("error code after buffer triangles: " + gl.getError().toString(16))	    	
+
 	    	gl.lineWidth(3.5);
 	    	
 	    	mvPushMatrix();
@@ -244,8 +241,6 @@
 	    	setMatrixUniforms();
 	    	setDrawColorUniform([1.0,0.0,0.5,1.0]);
 	    	gl.drawArrays(gl.TRIANGLES,0,pts.length/3);
-	    	if(!doneOnce)
-		    	console.log("error code after draw triangles: " + gl.getError().toString(16))
 	    	
 	    	mvPopMatrix();
     	}
@@ -292,22 +287,58 @@
 	    	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,
 	    			3,
 	    			gl.FLOAT,false,0,0);
-	    	if(!doneOnce)
-		    	console.log("error code after set vertexAttribPointer: " + gl.getError().toString(16));
 	    	
 	    	setMatrixUniforms();
 	    	
 	    	setDrawColorUniform([1.0,0.0,0.5,1.0]);
 	    	
-	    	if(!doneOnce)
-		    	console.log("error code b4 draw arrays: " + gl.getError().toString(16));
 	    	gl.drawArrays(gl.LINES,0,pts.length/3);
 	    	if(!doneOnce)
-		    	console.log("error code after dray arrays: " + gl.getError().toString(16));
-	    	
 	    	mvPopMatrix();    
 
     	}
+    }
+
+
+    function drawMonotonePolygons(tPoly){
+
+    	var pts=[];
+    	var l = tPoly.length;
+
+	for(var i = 0; i < tPoly.length;i+=1) {
+          for(var j = 0; j < tPoly[i].length-1; j+=1) {
+		pts.push(tPoly[i][j].coord[0].toFixed(1));
+		pts.push(tPoly[i][j].coord[1].toFixed(2));
+		pts.push(0.0);
+		pts.push(tPoly[i][j+1].coord[0].toFixed(1));
+		pts.push(tPoly[i][j+1].coord[1].toFixed(2));
+		pts.push(0.0);
+          }
+	    pts.push(tPoly[i][tPoly[i].length-1].coord[0].toFixed(1));
+	    pts.push(tPoly[i][tPoly[i].length-1].coord[1].toFixed(2));
+	    pts.push(0.0);
+	    pts.push(tPoly[i][0].coord[0].toFixed(1));
+	    pts.push(tPoly[i][0].coord[1].toFixed(2));
+	    pts.push(0.0);
+	}
+
+	tPolyBuffer= gl.createBuffer();
+
+	gl.bindBuffer(gl.ARRAY_BUFFER,tPolyBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER,
+		      new Float32Array(pts),
+		       gl.STATIC_DRAW);	    	
+	gl.lineWidth(3.5);
+	mvPushMatrix();
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute,
+			3,
+			gl.FLOAT,false,0,0);
+
+	setMatrixUniforms();
+	setDrawColorUniform([1.0,0.0,0.5,1.0]);
+   	gl.drawArrays(gl.LINES,0,pts.length/3);
+	mvPopMatrix();    
+
     }
  
 
@@ -324,7 +355,7 @@
         gl.linkProgram(shaderProgram);
 
         if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-            alert("Could not initialise shaders");
+            alert("Could not initialize shaders");
         }
 
         gl.useProgram(shaderProgram);
@@ -366,7 +397,7 @@
 	    $("#tabs").tabs();
 	    $("#tabs").height(300);
 	    $("button").button();
-	    $( "#max-diam-slider" ).slider({min:1,max:5});
+	    $( "#max-diam-slider" ).slider({min:1,max:6});
 	    $( "#max-diam-slider" ).width(200);
-    	    global_max_triang_diam=$('#max-diam-slider').slider("value");
+    	    global_max_triang_diam = $('#max-diam-slider').slider("value");
     });

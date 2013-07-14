@@ -1,3 +1,4 @@
+ls
 console.log('shapes.js loaded');
 
 function Point(x,y,z){
