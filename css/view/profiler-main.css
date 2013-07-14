@@ -15,8 +15,8 @@ body{overflow:hidden;}
 
 #right_col {
    position:absolute;
-   width:450px;
-   left:250px;
+   left:350px;
+   width:700px;
 }
 
 #left_sub_col {
@@ -25,25 +25,11 @@ body{overflow:hidden;}
 }
 
 #right_sub_col {
-   float:right;
-   width:150px;
-}
-
-#add-point-button {
-   width:150px;
+   position:relative;
+   left:300px;
 }
 
 
 /****Jquery UI*****/
 
-/* #feedback { font-size: 1.4em; } */
-/* #selectable .ui-selecting { background: #FECA40; } */
-/* #selectable .ui-selected { background: #F39814;  color: white; } */
-/* #selectable { list-style-type: none; margin: 0; padding: 0; width: 10%; } */
-/* #selectable li { margin: 3px; padding: 0.4em; font-size: 0.8em; height: 18px; } */
-
-
-/* .draw-options { position:relative; left:150px; bottom:100px; } */
 /* #button { padding: .5em 1em; text-decoration: none; } */
-/* #options-container { width: 80%; height: 90px; padding: 0.4em; position: relative; } */
-/* #options-container h3 { margin: 0; padding: 0.4em; text-align: center; } */
