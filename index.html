@@ -32,7 +32,6 @@
         /* no lighting */
        gl_FragColor = vColor;
 
-
       /*  for lighting
        vec4 fragColor = vColor;
        gl_FragColor = vec4(fragColor.rgb * vLightWeighting, fragColor.a);
@@ -84,25 +83,17 @@
 </head>
 
 <body onload="webGLStart();">
-   <p id="c"><canvas id="glcanvas" width="1400" height="450"></canvas></p> 
-
+   <p id="c"><canvas id="glcanvas" width="1400" height="550"></canvas></p> 
   <div id="tabs">
     <ul>
       <li><a href="#tabs-1">Actions</a></li>
     </ul>
-
     <div id="tabs-1">
-
-
-
       <div id="left_col">
           <p>Triangle size</p>
           <div id="max-diam-slider"></div>
-
       </div>
-
       <div id="right_col">
-
         <div id="right_sub_col">
 	    <div>
     	      <button id="triangulate-points-button">Triangulate</button>
@@ -111,9 +102,7 @@
         <div id="left_sub_col">
 	  <button id="clear-screen-button"> Clear Screen </button>
       </div>
-
     </div>
-
   </div>
 
 
