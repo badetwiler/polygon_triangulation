@@ -7,13 +7,12 @@ body{overflow:hidden;}
 
 #glcanvas{border:none;}
 
-
-#tabsX {
+#ui-container {
   margin-top:20px;
+  margin-bottom:20px;
   text-align:center;
   width:1400;
 }
-
 
 #left_col {
    margin-left:100px;
