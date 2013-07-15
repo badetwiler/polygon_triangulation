@@ -15,8 +15,8 @@ body{overflow:hidden;}
 
 #right_col {
    position:absolute;
-   left:350px;
-   width:700px;
+   left:300px;
+   width:800px;
 }
 
 #left_sub_col {
@@ -26,9 +26,12 @@ body{overflow:hidden;}
 
 #right_sub_col {
    position:relative;
-   left:300px;
+   left:250px;
 }
 
+button {
+ margin:10px;
+}
 
 /****Jquery UI*****/
 
