@@ -1,14 +1,22 @@
 
 body{overflow:hidden;}
 
-#c{border-style:solid;}
-#glcanvas{border:none;}
-
-.sb-pos-input{
-  width:30px;
+#c{
+  text-align:center;
 }
 
+#glcanvas{border:none;}
+
+
+#tabsX {
+  margin-top:20px;
+  text-align:center;
+  width:1400;
+}
+
+
 #left_col {
+   margin-left:100px;
    float:left;
    width:200px;
 }
@@ -20,6 +28,7 @@ body{overflow:hidden;}
 }
 
 #left_sub_col {
+   padding-left:80px;
    float:left;
    width:150px;
 }
@@ -31,6 +40,14 @@ body{overflow:hidden;}
 
 button {
  margin:10px;
+}
+
+h3 {
+  font-family:calibri,arial;
+}
+
+p {
+  font-family:calibri,arial;
 }
 
 /****Jquery UI*****/
