@@ -7,7 +7,7 @@ http://badetwiler.github.io/polygon_triangulation/
 Purpose:
 
 This project demonstrates triangulation of polygons (without holes) using 
-monotone polygon decomposition.
+monotone polygon decomposition. A red-black tree was implemented for use in this algorithm, located in js/sb/sb-red-black-tree.js
 
 
 Directions:
